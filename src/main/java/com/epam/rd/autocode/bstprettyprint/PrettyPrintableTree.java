@@ -21,7 +21,24 @@ public class PrettyPrintableTree implements PrintableTree {
 
     @Override
     public void add(int i) {
-        root = add(root, i);
+        if (!contains(root, i)) {
+            root = add(root, i);
+        }
+    }
+
+    private boolean contains(Node node, int value) {
+        if (node == null) {
+            return false;
+        }
+
+        if (value < node.data) {
+            return contains(node.left, value);
+        } else if (value > node.data) {
+            return contains(node.right, value);
+        } else {
+            // Value found in the tree
+            return true;
+        }
     }
 
     private Node add(Node node, int value) {
